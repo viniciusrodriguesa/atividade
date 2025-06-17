@@ -17,37 +17,37 @@ while True:
     
     try:
         #variáveis
-        nome = input("Informe seu nome")
-        peso = float(input("Informe seu peso em Kg").replace(",", "."))
-        altura = float(input("Informe sua altura em metros").replace(",","."))
-        imc = (altura*altura/peso)
-        print(imc)
+        nome = input("Informe seu nome: ").title().strip()
+        peso = float(input("Informe seu peso em Kg: ").replace(",", "."))
+        altura = float(input("Informe sua altura em metros: ").replace(",","."))
+        imc = peso / altura**2
+    
 
-        
+        if imc <= 18.5:
+            print(f"Seu IMC é {imc:.2f}. {nome} está abaixo do peso.")
+        elif imc > 18.5 and imc <= 25:
+            print(f"Seu IMC é {imc:.2f}. {nome} está no peso ideal.")
+        elif imc > 24.5 and imc <= 30:
+            print(f"Seu IMC é {imc:.2f}. {nome} está acima do peso.")
+        elif imc > 30 and imc <= 35:
+            print(f"Seu IMC é {imc:.2f}. {nome} está obeso.")
+        elif imc > 35 and imc <= 40:
+            print(f"Seu IMC é {imc:.2f}. {nome} está em obesidade nível 2.")
+        else:
+            print(f"Seu IMC é {imc:.2f}. {nome} está em obesidade mórbida.")
 
-        # if imc <= 18.5:
-        #     print(f"Seu IMC é {imc}. Você está abaixo do peso.")
-        # elif imc > 18.5 and imc <= 25:
-        #     print(f"Seu IMC é {imc}. Você está no peso ideal.")
-        # elif imc > 24.5 and imc <= 30:
-        #     print(f"Seu IMC é {imc}. Você está acima do peso.")
-        # elif imc > 30 and imc <= 35:
-        #     print(f"Seu IMC é {imc}. Você está obeso.")
-        # elif imc > 35 and imc <= 40:
-        #     print(f"Seu IMC é {imc}. Você está em obesidade nível 2.")
-        # else:
-        #     print(f"Seu IMC é {imc}. Você está em obesidade mórbida.")
-
-
-        opcao = input("Deseja refazer o cáculo? (s/n)").lower().strip()
-        match opcao:
+        while True:
+            prosseguir = input("Deseja refazer o cáculo? (s/n): ").lower().strip()
+            if prosseguir == "s" or prosseguir == "n":
+                break
+            else:
+                print("Opção inválida.")
+                continue
+        match prosseguir:
             case "s":
                 continue
             case "n":
                 break
-            case _:
-                print("Opção inválida.")
-                continue
     except Exception as e:
         print(f"Não foi possível executar operação. {e}.")
         continue
