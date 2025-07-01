@@ -2,7 +2,6 @@
 from datetime import date
 from datetime import datetime
 import random
-
 import os
 
 lista = []
@@ -15,7 +14,7 @@ while True:
     print("3 - Altere os dados de um usuário.")
     print("4 - Faça um sorteio dos usuários.")
     print("5 - Exclua um usuário.")
-    print("6 - Saia do programa.")
+    print("6 - Sair do programa.")
     opcao = input("Informe a opção desejada: ").strip()
     os.system("cls" if os.name == "nt" else "clear")
     match opcao:
@@ -24,18 +23,20 @@ while True:
             try:
                 usuario = {}
                 usuario.update({
-                    'nome': str(input("Insira o nome completo: ")),
-                    'data': input("Insira a data de nascimento: "),
-                    'email': input("Insira o e-mail: "),
-                    'cpf': input("Insira o CPF: "),
-                    'telefone': input("Insira o número de telefone: "),
-                    'genero': input("Informe o seu gênero: "),
-                    'data_cadastro' : date.today(),
+                    'nome': str(input("Insira o nome completo: ").strip().title()),
+                    'data': input("Insira a data de nascimento: ").strip(),
+                    'email': input("Insira o e-mail: ").strip().lower(),
+                    'cpf': input("Insira o CPF: ").strip(),
+                    'telefone': input("Insira o número de telefone: ").strip(),
+                    'genero': input("Informe o seu gênero: ").strip(),
+                    'data_cadastro' : date.today().strftime("%d/%m/%Y"),
                     'hora_cadastro': datetime.now().time().strftime('%H:%M:%S')
                 })
                 lista.append(usuario)
 
-                print("Usuário inserido com sucesso!")
+                os.system("cls" if os.name == "nt" else "clear")
+
+                print(f"Usuário {usuario.get('nome')} inserido com sucesso!")
             except Exception as e:
                 print(f"Não foi possível inserir novo usuário. {e}.")
             finally:
@@ -55,16 +56,42 @@ while True:
                         print(f'Gênero:{lista[i]['genero']}')
                         print(f'Data do cadastro:{lista[i]['data_cadastro']}')
                         print(f'Hora do cadastro:{lista[i]['hora_cadastro']}')
+                        print("-"*40)
             finally:
                 continue
         case "3":
             try:
                 indice = int(input('Informe o índice a ser alerado: '))
-                campo = input('Informe o nome do campo a ser alterado: ')
+                os.system("cls" if os.name == "nt" else "clear")
+                if i >= 0 and i < len(lista):
+                    print(f"{"-"*20} Dados do usuário {'-'*20}")
+                    for chave in lista[i]:
+                        print(f"{chave.captalize()}: {lista[i].get(chave)}") #destrinchar esse código para melhor entedimento
+                    print('\n')
+                    while True:
 
-                indice -= 1
+                        campo = input('Informe o nome do campo a ser alterado: ').strip().lower()
 
-                lista[indice][campo] = input(f'Infome o novo valor do campo {campo}: ')
+
+                        if campo in lista[i]:
+
+                            lista[indice][campo] = input(f'Infome o novo valor do campo {campo}: ')
+                            os.system("cls" if os.name == "nt" else "clear")
+                            print("Chave alterar com sucesso.")
+
+                else:
+                    print("Índice inválido")
+                while True:
+                    prosseguir = input("Deseja alterar outra chave? (s/n): ").strip().lower()
+                    if prosseguir == "s" or prosseguir == "n":
+                        break
+                    else:
+                        continue
+                match prosseguir:
+                    case "s":
+                        continue
+                    case "n":
+                        break
             except:
                 print('Não foi possível alterar.')
             finally:
@@ -81,7 +108,7 @@ while True:
                 print(f'Gênero:{lista[indice_sorteado]['genero']}')
                 print(f'Data do cadastro:{lista[indice_sorteado]['data_cadastro']}')
                 print(f'Hora do cadastro:{lista[indice_sorteado]['hora_cadastro']}')
-            except Exception is {e}:
+            except Exception is e:
                 print(f"Não foi possível realizar o sorteio {e}")
             finally:
                 continue
